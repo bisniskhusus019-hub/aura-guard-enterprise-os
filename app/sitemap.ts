@@ -2,11 +2,25 @@ import type { MetadataRoute } from "next";
 
 const baseUrl = "https://aura-guard-enterprise-os.vercel.app";
 
+const publicRoutes = [
+  ["/", 1],
+  ["/pricing", 0.95],
+  ["/features", 0.9],
+  ["/trust", 0.8],
+  ["/audit-intake", 0.85],
+  ["/contact-sales", 0.85],
+  ["/demo-request", 0.8],
+  ["/login", 0.4],
+  ["/signup", 0.4],
+  ["/terms", 0.3],
+  ["/privacy", 0.3],
+];
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    { url: baseUrl, lastModified: new Date(), changeFrequency: "weekly", priority: 1 },
-    { url: `${baseUrl}/audit-intake`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.8 },
-    { url: `${baseUrl}/login`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.4 },
-    { url: `${baseUrl}/signup`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.4 },
-  ];
+  return publicRoutes.map(([path, priority]) => ({
+    url: `${baseUrl}${path === "/" ? "" : path}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly",
+    priority: Number(priority),
+  }));
 }
