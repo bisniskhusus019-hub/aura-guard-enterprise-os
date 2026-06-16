@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type CSSProperties, type FormEvent } from "react";
 import { auraPlans } from "@/lib/pricing";
 
 type FormMode = "sales" | "demo";
@@ -15,7 +15,7 @@ export function LeadCaptureForm({ mode }: { mode: FormMode }) {
   const [result, setResult] = useState<LeadResult | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setResult(null);
     setIsSubmitting(true);
@@ -71,7 +71,7 @@ export function LeadCaptureForm({ mode }: { mode: FormMode }) {
   );
 }
 
-const inputStyle: React.CSSProperties = {
+const inputStyle: CSSProperties = {
   padding: 14,
   borderRadius: 12,
   border: "1px solid var(--border)",
