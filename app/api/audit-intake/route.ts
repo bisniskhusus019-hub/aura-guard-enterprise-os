@@ -25,6 +25,8 @@ export async function POST(request: Request) {
     }
 
     const scoring = scoreIntake(payload);
+    const assessment = scoring.assessment;
+    const factors = scoring.factors;
     const supabase = getAdminClient();
 
     const { data: organization, error: orgError } = await supabase
@@ -34,7 +36,7 @@ export async function POST(request: Request) {
         industry: payload.industry ?? null,
         size_band: payload.companySize ?? null,
         region: payload.region ?? null,
-        risk_profile: scoring.riskBand,
+        risk_profile: assessment.riskBand,
       })
       .select("id")
       .single();
@@ -69,8 +71,8 @@ export async function POST(request: Request) {
       approval_process: payload.approvalProcess ?? null,
       vendor_notes: payload.vendorNotes ?? null,
       desired_output: payload.desiredOutput ?? null,
-      generated_score: scoring.totalScore,
-      generated_risk_band: scoring.riskBand,
+      generated_score: assessment.totalScore,
+      generated_risk_band: assessment.riskBand,
     });
 
     if (intakeError) throw intakeError;
@@ -78,15 +80,15 @@ export async function POST(request: Request) {
     const { error: assessmentError } = await supabase.from("risk_assessments").insert({
       organization_id: organization.id,
       assessment_name: "AI Risk Intake Assessment",
-      data_sensitivity_score: scoring.topDrivers.find((driver) => driver.key === "dataSensitivity")?.score ?? 0,
-      tool_autonomy_score: scoring.topDrivers.find((driver) => driver.key === "toolAutonomy")?.score ?? 0,
-      external_exposure_score: 0,
-      approval_weakness_score: 0,
-      vendor_risk_score: 0,
-      prompt_injection_score: 0,
-      logging_weakness_score: 0,
-      compliance_gap_score: 0,
-      executive_summary: `Automated intake received for ${payload.companyName}. Generated preliminary risk score: ${scoring.totalScore} / ${scoring.riskBand}.`,
+      data_sensitivity_score: factors.dataSensitivity,
+      tool_autonomy_score: factors.toolAutonomy,
+      external_exposure_score: factors.externalExposure,
+      approval_weakness_score: factors.approvalWeakness,
+      vendor_risk_score: factors.vendorRisk,
+      prompt_injection_score: factors.promptInjectionRisk,
+      logging_weakness_score: factors.loggingWeakness,
+      compliance_gap_score: factors.complianceGap,
+      executive_summary: `Automated intake received for ${payload.companyName}. Generated preliminary risk score: ${assessment.totalScore} / ${assessment.riskBand}.`,
       remediation_plan: "Complete AI inventory, permission matrix, data exposure review, vendor review, and executive audit report.",
     });
 
@@ -95,9 +97,9 @@ export async function POST(request: Request) {
     return NextResponse.json({
       ok: true,
       organizationId: organization.id,
-      score: scoring.totalScore,
-      riskBand: scoring.riskBand,
-      topDrivers: scoring.topDrivers,
+      score: assessment.totalScore,
+      riskBand: assessment.riskBand,
+      topDrivers: assessment.topDrivers,
     });
   } catch (error) {
     return NextResponse.json(
