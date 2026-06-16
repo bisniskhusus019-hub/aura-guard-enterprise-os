@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { auditModules } from "@/lib/demo-data";
+import { PublicFooter } from "@/components/public-footer";
 
 const pricing = [
   ["Starter Audit", "$299", "AI inventory, risk summary, and first remediation map."],
@@ -15,7 +16,9 @@ export default function HomePage() {
     <main>
       <header className="container" style={{ padding: "26px 0", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <strong style={{ fontSize: 20, letterSpacing: "-0.04em" }}>AURA-GUARD</strong>
-        <div style={{ display: "flex", gap: 10 }}>
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+          <Link className="btn btn-secondary" href="/features">Features</Link>
+          <Link className="btn btn-secondary" href="/trust">Trust</Link>
           <Link className="btn btn-secondary" href="/pricing">Pricing</Link>
           <Link className="btn btn-secondary" href="/dashboard">Dashboard Demo</Link>
         </div>
@@ -31,8 +34,9 @@ export default function HomePage() {
         </p>
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 30 }}>
           <Link className="btn btn-primary" href="/audit-intake">Start AI Risk Intake</Link>
+          <Link className="btn btn-secondary" href="/contact-sales">Contact Sales</Link>
+          <Link className="btn btn-secondary" href="/demo-request">Request Demo</Link>
           <Link className="btn btn-secondary" href="/pricing">View Pricing Ladder</Link>
-          <Link className="btn btn-secondary" href="/dashboard">Run Dashboard Demo</Link>
         </div>
       </section>
 
@@ -48,7 +52,7 @@ export default function HomePage() {
             <div className="metric-grid" style={{ gridTemplateColumns: "1fr 1fr" }}>
               <div className="metric-card"><div className="metric-label">Audit Score</div><div className="metric-value">0–100</div></div>
               <div className="metric-card"><div className="metric-label">Plans</div><div className="metric-value">8</div></div>
-              <div className="metric-card"><div className="metric-label">Modules</div><div className="metric-value">12+</div></div>
+              <div className="metric-card"><div className="metric-label">Modules</div><div className="metric-value">20+</div></div>
               <div className="metric-card"><div className="metric-label">Top Offer</div><div className="metric-value">$15k+</div></div>
             </div>
           </div>
@@ -85,6 +89,8 @@ export default function HomePage() {
           <Link className="btn btn-primary" href="/pricing" style={{ marginTop: 26 }}>Open Full Pricing Page</Link>
         </div>
       </section>
+
+      <PublicFooter />
     </main>
   );
 }
