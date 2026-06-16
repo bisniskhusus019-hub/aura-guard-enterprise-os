@@ -1,17 +1,20 @@
 # AURA-GUARD App Setup
 
 ## Current Stage
-The app foundation is now structured as a Next.js project with:
+The app foundation is structured as a Next.js product with:
 
 - Premium public landing page
 - Dashboard shell
 - AI Risk Command Center connected to live Supabase reads with safe fallback
-- Report preview page
 - Live audit intake form shell
 - Audit intake API route
 - Dashboard API route
+- Report generator engine
+- Latest report API route
+- Generate report API route
+- Printable report page
 - Risk scoring engine
-- Supabase client helper
+- Supabase helpers
 - Safe `.env.example`
 
 ## Local Run
@@ -47,19 +50,23 @@ Never commit `.env.local`. The service role key is server-only and must never be
 ## Current Routes
 
 ```txt
-/                    Premium landing page
-/audit-intake         Live audit intake form shell
-/dashboard            AI Risk Command Center with live/fallback data
-/dashboard/reports    Executive report preview
-/api/risk-score       Risk scoring API route
-/api/audit-intake     Audit intake submission API route
-/api/dashboard        Dashboard overview API route
+/                         Premium landing page
+/audit-intake              Live audit intake form shell
+/dashboard                 AI Risk Command Center with live/fallback data
+/dashboard/reports         Generated report dashboard view
+/reports/print             Printable report page
+/api/risk-score            Risk scoring API route
+/api/audit-intake          Audit intake submission API route
+/api/dashboard             Dashboard overview API route
+/api/reports/generate      Generate and store report API route
+/api/reports/latest        Latest report API route
 ```
 
 ## Supabase Status
 Dedicated project: `aura-guard`
 Schema: `aura_guard`
 Tables: 15 total tables including `intake_submissions`
+Reports table upgraded with payload, markdown, score, risk band, package tier, client name, and generated timestamp
 Demo scoring verified: `83 / Critical Risk`
 Live demo inventory seeded: 3 AI tools, including 1 Shadow AI item
 
@@ -86,9 +93,26 @@ When environment variables are configured, it reads:
 
 If environment variables are missing, it falls back to demo data so local builds do not break.
 
+## Report Generator Flow
+The report engine builds a complete audit report from dashboard data.
+
+It outputs:
+
+- structured JSON report payload
+- markdown report content
+- executive summary
+- final score and risk band
+- top risk drivers
+- report sections
+- findings
+- recommendations
+- remediation roadmap
+- commercial next step
+
+The `/api/reports/generate` route stores the generated report in Supabase when environment variables are configured.
+
 ## Next Engineering Tasks
 
-1. Create report generation payload
-2. Add PDF export or report rendering pipeline
-3. Add authentication-ready structure
-4. Prepare Vercel deployment when ready
+1. Add authentication-ready structure
+2. Add polished export/download pipeline
+3. Prepare Vercel deployment when ready
