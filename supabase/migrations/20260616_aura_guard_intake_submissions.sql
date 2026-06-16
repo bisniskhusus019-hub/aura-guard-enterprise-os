@@ -1,0 +1,36 @@
+create table if not exists aura_guard.intake_submissions (
+  id uuid primary key default gen_random_uuid(),
+  organization_id uuid references aura_guard.organizations(id) on delete set null,
+  company_name text not null,
+  website text,
+  industry text,
+  region text,
+  company_size text,
+  contact_name text,
+  contact_email text,
+  ai_tools text,
+  departments_using_ai text,
+  business_functions text,
+  approved_usage_status text,
+  existing_ai_policy text,
+  customer_data_exposure boolean default false,
+  financial_data_exposure boolean default false,
+  hr_data_exposure boolean default false,
+  legal_data_exposure boolean default false,
+  internal_kb_exposure boolean default false,
+  credential_exposure boolean default false,
+  can_send_emails boolean default false,
+  can_update_records boolean default false,
+  can_approve_payments boolean default false,
+  can_modify_files boolean default false,
+  can_call_apis boolean default false,
+  approval_process text,
+  vendor_notes text,
+  desired_output text,
+  generated_score int,
+  generated_risk_band text,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists idx_aura_guard_intake_submissions_created_at on aura_guard.intake_submissions(created_at desc);
+create index if not exists idx_aura_guard_intake_submissions_email on aura_guard.intake_submissions(contact_email);
