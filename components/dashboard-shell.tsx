@@ -12,10 +12,10 @@ const navItems = [
   { label: "Compliance", href: "/dashboard/compliance" },
   { label: "Vendors", href: "/dashboard/vendors" },
   { label: "Policies", href: "/dashboard/policies" },
-  { label: "Audit Logs", href: "/dashboard/audit-logs" },
+  { label: "Activity", href: "/dashboard/audit-logs" },
   { label: "Reports", href: "/dashboard/reports" },
-  { label: "White Label", href: "/dashboard/white-label" },
-  { label: "Settings", href: "/dashboard/settings" },
+  { label: "Partner Mode", href: "/dashboard/white-label" },
+  { label: "Workspace", href: "/dashboard/workspace" },
 ];
 
 export function DashboardShell({ children, activeHref = "/dashboard" }: { children: ReactNode; activeHref?: string }) {
@@ -26,9 +26,7 @@ export function DashboardShell({ children, activeHref = "/dashboard" }: { childr
         <div className="sidebar-subtitle">Enterprise AI Governance OS</div>
         <nav className="nav-list">
           {navItems.map((item) => (
-            <Link className={item.href === activeHref ? "nav-item active" : "nav-item"} href={item.href} key={item.href}>
-              {item.label}
-            </Link>
+            <Link className={item.href === activeHref ? "nav-item active" : "nav-item"} href={item.href} key={item.href}>{item.label}</Link>
           ))}
         </nav>
       </aside>
