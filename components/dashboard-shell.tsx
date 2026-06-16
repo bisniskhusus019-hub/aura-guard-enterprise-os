@@ -14,6 +14,7 @@ const navItems = [
   { label: "Policies", href: "/dashboard/policies" },
   { label: "Activity", href: "/dashboard/audit-logs" },
   { label: "Reports", href: "/dashboard/reports" },
+  { label: "Billing", href: "/dashboard/billing" },
   { label: "Partner Mode", href: "/dashboard/white-label" },
   { label: "Workspace", href: "/dashboard/workspace" },
 ];
