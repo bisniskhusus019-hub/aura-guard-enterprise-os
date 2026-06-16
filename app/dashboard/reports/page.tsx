@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { DashboardShell } from "@/components/dashboard-shell";
 import { generateAndStoreReport, getLatestStoredReport } from "@/lib/report-storage";
 
@@ -9,12 +10,16 @@ export default async function ReportsPage() {
   }
 
   return (
-    <DashboardShell>
+    <DashboardShell activeHref="/dashboard/reports">
       <div className="badge">Executive report generator · {report.status}</div>
       <h1 className="section-title" style={{ marginTop: 16 }}>{report.title}</h1>
       <p className="section-copy">
         Client: {report.clientName} · Package: {report.packageTier} · Generated: {new Date(report.generatedAt).toLocaleString()}
       </p>
+      <div style={{ display: "flex", gap: 12, flexWrap: "wrap", marginTop: 18 }}>
+        <Link className="btn btn-primary" href="/reports/print">Open Printable Report</Link>
+        <a className="btn btn-secondary" href="/api/reports/latest/markdown">Download Markdown</a>
+      </div>
 
       <div className="grid" style={{ gridTemplateColumns: "0.75fr 1.25fr", alignItems: "start", marginTop: 28 }}>
         <div className="card" style={{ padding: 24 }}>
@@ -68,20 +73,10 @@ export default async function ReportsPage() {
       <div className="card" style={{ padding: 24, marginTop: 18 }}>
         <h2 style={{ marginTop: 0 }}>30-Day Remediation Plan</h2>
         <table>
-          <thead>
-            <tr>
-              <th>Timeline</th>
-              <th>Focus</th>
-              <th>Action</th>
-            </tr>
-          </thead>
+          <thead><tr><th>Timeline</th><th>Focus</th><th>Action</th></tr></thead>
           <tbody>
             {report.payload.remediationRoadmap.map((item) => (
-              <tr key={item.timeline}>
-                <td>{item.timeline}</td>
-                <td>{item.focus}</td>
-                <td>{item.action}</td>
-              </tr>
+              <tr key={item.timeline}><td>{item.timeline}</td><td>{item.focus}</td><td>{item.action}</td></tr>
             ))}
           </tbody>
         </table>
