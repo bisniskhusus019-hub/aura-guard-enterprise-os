@@ -1,4 +1,4 @@
-import { calculateRiskAssessment } from "@/lib/risk-scoring";
+import { calculateRiskAssessment, type RiskFactorInput } from "@/lib/risk-scoring";
 
 export type IntakePayload = {
   companyName: string;
@@ -29,7 +29,7 @@ export type IntakePayload = {
   desiredOutput?: string;
 };
 
-export function scoreIntake(payload: IntakePayload) {
+export function getIntakeFactorScores(payload: IntakePayload): RiskFactorInput {
   const dataSensitivity =
     (payload.customerDataExposure ? 3 : 0) +
     (payload.financialDataExposure ? 3 : 0) +
@@ -52,7 +52,7 @@ export function scoreIntake(payload: IntakePayload) {
   const externalExposure = payload.businessFunctions?.toLowerCase().includes("customer") ? 8 : 4;
   const loggingWeakness = payload.approvalProcess?.toLowerCase().includes("log") ? 4 : 8;
 
-  return calculateRiskAssessment({
+  return {
     dataSensitivity,
     toolAutonomy,
     externalExposure,
@@ -61,5 +61,13 @@ export function scoreIntake(payload: IntakePayload) {
     promptInjectionRisk,
     loggingWeakness,
     complianceGap,
-  });
+  };
+}
+
+export function scoreIntake(payload: IntakePayload) {
+  const factors = getIntakeFactorScores(payload);
+  return {
+    factors,
+    assessment: calculateRiskAssessment(factors),
+  };
 }
