@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { getPlanByCode, formatUsd } from "@/lib/pricing";
 
-export default function CheckoutPage({ searchParams }: { searchParams: { plan?: string } }) {
-  const plan = getPlanByCode(searchParams.plan ?? "professional_audit_999");
+export default async function CheckoutPage({ searchParams }: { searchParams: Promise<{ plan?: string }> }) {
+  const params = await searchParams;
+  const plan = getPlanByCode(params.plan ?? "professional_audit_999");
 
   if (!plan) {
     return (
@@ -19,7 +20,7 @@ export default function CheckoutPage({ searchParams }: { searchParams: { plan?: 
       <div className="card" style={{ padding: 32, maxWidth: 760, marginTop: 48 }}>
         <div className="badge">Checkout-ready routing</div>
         <h1 className="section-title" style={{ marginTop: 16 }}>Confirm {plan.name}</h1>
-        <p className="section-copy">This checkout page is ready to connect to Stripe Checkout when `STRIPE_SECRET_KEY` and price IDs are added in Vercel.</p>
+        <p className="section-copy">This checkout page is ready to connect to hosted checkout when billing keys and price IDs are added in Vercel.</p>
         <div className="metric-grid" style={{ marginTop: 26, marginBottom: 22 }}>
           <div className="metric-card"><div className="metric-label">Price</div><div className="metric-value">{formatUsd(plan.price)}</div></div>
           <div className="metric-card"><div className="metric-label">Type</div><div className="metric-value" style={{ fontSize: 22 }}>{plan.type}</div></div>
