@@ -26,6 +26,7 @@ const navItems = [
   { label: "Partner Mode", href: "/dashboard/white-label" },
   { label: "Workspace", href: "/dashboard/workspace" },
   { label: "Admin", href: "/dashboard/admin" },
+  { label: "Launch", href: "/dashboard/launch" },
 ];
 
 export function DashboardShell({ children, activeHref = "/dashboard" }: { children: ReactNode; activeHref?: string }) {
