@@ -1,15 +1,25 @@
-# AURA-GUARD Final Payment & Publish Handoff
+# AURA-GUARD Final Publish Handoff
 
 ## Current Position
-AURA-GUARD is now structurally complete as a pre-payment, pre-production SaaS web app.
+AURA-GUARD is structurally complete as a public B2B SaaS website plus private dashboard app.
 
-The remaining work is not product architecture. The remaining work is production activation:
+Payment can be connected later. The product can be prepared for public publishing first as a lead-generation, demo, intake, and dashboard-preview platform.
+
+## Remaining Work Before Public Publish
 
 1. Add Supabase environment variables in Vercel
-2. Add payment provider server key and plan price IDs in Vercel
-3. Configure production auth callback URLs
-4. Redeploy/publish the production site
-5. Run final smoke test
+2. Configure production auth callback URLs
+3. Redeploy the production site
+4. Run final smoke test
+5. Publish the public URL
+
+## Remaining Work Before Live Paid Checkout
+
+1. Add billing provider server key in Vercel
+2. Add price IDs for every plan in Vercel
+3. Confirm checkout redirect works
+4. Confirm customer portal works
+5. Enable paid checkout CTA publicly
 
 ## Completed Product Layers
 
@@ -26,7 +36,7 @@ The remaining work is not product architecture. The remaining work is production
 - Report generator
 - Printable report
 - Markdown report export
-- Billing dashboard
+- Billing-ready dashboard
 - Checkout-ready route
 - Customer portal-ready route
 - Sales operations dashboard
@@ -43,6 +53,39 @@ The remaining work is not product architecture. The remaining work is production
 - Trust center page
 - Terms page
 - Privacy page
+- Public footer navigation
+- Sitemap
+- Robots rules
+- Global metadata
+- Loading page
+- Error page
+- Not-found page
+- Security headers
+
+## Public Publish Rule
+Public publishing can happen before payment if:
+
+- Public pages load
+- Pricing page loads
+- Trust, terms, and privacy pages load
+- Contact sales and demo pages load
+- Intake page loads
+- Dashboard demo loads
+- Readiness endpoint does not expose secrets
+- Payment CTAs are treated as checkout-ready, not guaranteed live checkout
+
+## Paid Checkout Rule
+Paid checkout should not be advertised as fully live until billing keys and price IDs are configured.
+
+## Supabase Variables Needed For Public Publish
+
+Add the real Supabase values inside Vercel Project Settings only.
+
+Needed values:
+
+- Public Supabase project URL
+- Public browser-safe Supabase key
+- Server-only Supabase service key
 
 ## Payment Variables Needed Later
 
@@ -60,27 +103,5 @@ Needed values:
 - Price ID for Agency Partner
 - Price ID for Strategic Partner
 
-## Supabase Variables Needed Later
-
-Add the real Supabase values inside Vercel Project Settings only.
-
-Needed values:
-
-- Public Supabase project URL
-- Public browser-safe Supabase key
-- Server-only Supabase service key
-
-## Publish Rule
-Only publish widely after:
-
-- Readiness endpoint shows Supabase variables present
-- Billing readiness shows payment variables present
-- Login/signup works
-- Intake saves to Supabase
-- Checkout redirects correctly
-- Dashboard loads
-- Report generator loads
-- Printable report loads
-
-## Final Go-Live Statement
-After payment keys, auth URLs, and production environment variables are configured, AURA-GUARD can be published as a public B2B SaaS website plus private dashboard app.
+## Final Statement
+AURA-GUARD is ready to move toward public publishing first. Payment can be activated afterward as the final commercial layer.
