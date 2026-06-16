@@ -3,6 +3,10 @@ import Link from "next/link";
 
 const navItems = [
   { label: "Overview", href: "/dashboard" },
+  { label: "Sales", href: "/dashboard/sales" },
+  { label: "Onboarding", href: "/dashboard/onboarding" },
+  { label: "Support", href: "/dashboard/support" },
+  { label: "Usage", href: "/dashboard/usage" },
   { label: "AI Inventory", href: "/dashboard/ai-inventory" },
   { label: "Shadow AI", href: "/dashboard/shadow-ai" },
   { label: "Agents", href: "/dashboard/agents" },
@@ -17,6 +21,7 @@ const navItems = [
   { label: "Billing", href: "/dashboard/billing" },
   { label: "Partner Mode", href: "/dashboard/white-label" },
   { label: "Workspace", href: "/dashboard/workspace" },
+  { label: "Admin", href: "/dashboard/admin" },
 ];
 
 export function DashboardShell({ children, activeHref = "/dashboard" }: { children: ReactNode; activeHref?: string }) {
