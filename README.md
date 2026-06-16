@@ -36,11 +36,27 @@ The product is designed as a full enterprise-style platform from day one, not a 
 10. Executive Report Generator
 11. White-Label Agency Mode
 
+## App Foundation
+
+Current Next.js routes:
+
+```txt
+/                    Premium landing page
+/audit-intake         Audit intake questionnaire shell
+/dashboard            AI Risk Command Center demo
+/dashboard/reports    Executive report preview
+/api/risk-score       Risk scoring API route
+```
+
 ## Repository Structure
 
 ```txt
-/docs/aura-guard/              Product, sales, risk, dashboard, and audit documentation
-/supabase/migrations/          Database schema migrations
+/app                         Next.js application routes
+/components                  Reusable UI components
+/lib                         Scoring, demo data, and Supabase helper
+/types                       AURA-GUARD TypeScript types
+/docs/aura-guard             Product, sales, risk, dashboard, and audit documentation
+/supabase/migrations         Database schema migrations
 ```
 
 ## Build Rule
