@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 
 const navItems = [
@@ -17,7 +18,7 @@ const navItems = [
   "Settings",
 ];
 
-export function DashboardShell({ children }: { children: React.ReactNode }) {
+export function DashboardShell({ children }: { children: ReactNode }) {
   return (
     <div className="dashboard-layout">
       <aside className="sidebar">
