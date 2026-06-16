@@ -5,8 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/api/", "/dashboard/"],
+      disallow: ["/api/", "/dashboard/", "/reports/print"],
     },
-    sitemap: "/sitemap.xml",
+    sitemap: "https://aura-guard-enterprise-os.vercel.app/sitemap.xml",
   };
 }
